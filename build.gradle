@@ -2,6 +2,7 @@ apply plugin: 'groovy'
 //apply plugin:'java'
 apply plugin: 'eclipse'
 apply plugin: 'spring-boot'
+
 println "Hello from the gradle script!"
  
 buildscript {
@@ -21,6 +22,10 @@ repositories {
 
 jar {
 	version = "3.0.0"
+}
+
+dependencies {
+    compile files('/home/fjs/libs/st-libs-1.0.0.jar')
 }
 
 dependencies {
@@ -47,6 +52,8 @@ dependencies {
 	compile "javax.servlet:javax.servlet-api:3.0.1"
 	compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.+'
 	compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.10'
+	
+		
 	//compile group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.1'
 	compile files('/home/fjs/programs/java/httpcomponents-client-4.3.3/lib/httpclient-4.3.3.jar',
                   //'/home/fjs/FIL/perf/LiveSitePerformanceAnalyser/lib/commons-logging-1.1.1.jar',
