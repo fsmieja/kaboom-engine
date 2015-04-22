@@ -22,7 +22,6 @@ import com.st.libs.db.MyEntityManagerFactoryBean
 @EnableScheduling
 @EnableAutoConfiguration
 @EnableConfigurationProperties
-//@ComponentScan("com.st.wasup.db")
 @EnableJpaRepositories("com.st.kaboom.orm")
 class AppConfig {
 
@@ -37,15 +36,15 @@ class AppConfig {
 
 	@Bean
 	public PlatformTransactionManager transactionManager(EntityManagerFactory emf){
-		JpaTransactionManager transactionManager = new JpaTransactionManager();
-		transactionManager.setEntityManagerFactory(emf);
+		JpaTransactionManager transactionManager = new JpaTransactionManager()
+		transactionManager.setEntityManagerFactory(emf)
 
-		return transactionManager;
+		return transactionManager
 	}
 
 	@Bean
 	public PersistenceExceptionTranslationPostProcessor exceptionTranslation(){
-		return new PersistenceExceptionTranslationPostProcessor();
+		return new PersistenceExceptionTranslationPostProcessor()
 	}
 
 	

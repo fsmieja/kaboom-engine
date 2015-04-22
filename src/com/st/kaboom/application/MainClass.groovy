@@ -18,64 +18,21 @@ public class MainClass implements CommandLineRunner  {
 	@Override
 	public void run(String... args) {
 		if (args.length < 1) {
-			println "Usage: java -jar urlpoke.jar <propsFileName>"
+			println "Usage: java -jar kaboom.jar <propsFileName>"
 			return
 		}
-		/*
-		def config = new ConfigSlurper().parse(new File(args[0]).toURI().toURL())
-		def numEngines = 1
-		if (config != null) {
-			if (config.perf.maxThreads != null)
-				numEngines = config.perf.maxThreads
-		}
-		*/	
 		
 		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
 		//ctx.scan("com.st.wasup.db")
-		ctx.scan("com.st.wasup.application")
-		ctx.scan("com.st.wasup.bus")
+		ctx.scan("com.st.kaboom.application")
+		ctx.scan("com.st.kaboom.bus")
 		ctx.refresh();
 
 
 		Thread.start {
-			ctx.getBean(EngineProcess.class).run(args[0], ctx)
+			ctx.getBean(NoteGenerator.class).run(args[0], ctx)
 		}
 
-		
-		Thread.start {
-			ctx.getBean(UrlSelector.class).run(args[0])
-		}
-
-		
-		Thread.start {
-			ctx.getBean(Notifier.class).run(args[0])
-		}
-		
-/*
-		AtomicInteger engId = new AtomicInteger()
-		numEngines.times {
-			Thread.start {
-				def i = engId.getAndIncrement()
-				ctx.getBean("engine${(i+1)}").run(args[0])
-			}
-		}
-	*/	
-
-		Thread.start {
-			ctx.getBean(Persister.class).run(args[0])
-		}
-
-		Thread.start {
-			ctx.getBean(SystemStats.class).run(args[0])
-		}
-
-		Thread.start {
-			ctx.getBean(Housekeep.class).run(args[0])
-		}
-
-		Thread.start {
-			ctx.getBean(SummaryGenerator.class).run(args[0])
-		}
 
 	
 	}
